@@ -1,4 +1,4 @@
-import { AjustesClient } from "./ajustes-client"
+import { AjustesClient } from "./ajustes/ajustes-client"
 
 export const metadata = {
   title: "Ajustes | Admin",
