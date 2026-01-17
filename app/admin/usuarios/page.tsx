@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
-import { UserDetailClient } from "./user-detail-client"
+import UsersClient from "./users-client"
 
 export const metadata = {
   title: "Detalle de Usuario | Admin",
