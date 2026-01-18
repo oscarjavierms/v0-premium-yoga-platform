@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       // Fallback: allow first user or specific admin email
       const isAdminEmail = user.email?.endsWith("@admin.com") || user.email === "admin@wellness.com"
       if (!isAdminEmail) {
-        redirect("/dashboard")
+        redirect("/")
       }
     } else if (profile.role !== "admin") {
       redirect("/")
