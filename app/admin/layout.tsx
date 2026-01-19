@@ -30,7 +30,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     }
   } catch {
     // If profiles table doesn't exist or role column missing, redirect
-    redirect("/dashboard")
+    redirect("/")
   }
 
   return (
