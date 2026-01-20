@@ -36,14 +36,12 @@ function SidebarContent({ onLinkClick }: { onLinkClick?: () => void }) {
 
   return (
     <>
-      {/* Logo */}
       <div className="p-6 border-b border-background/10">
         <Link href="/admin" className="font-serif text-xl font-medium" onClick={onLinkClick}>
           Admin Panel
         </Link>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 p-4">
         <ul className="space-y-1">
           {navItems.map((item) => {
@@ -70,7 +68,6 @@ function SidebarContent({ onLinkClick }: { onLinkClick?: () => void }) {
         </ul>
       </nav>
 
-      {/* Footer */}
       <div className="p-4 border-t border-background/10 space-y-2">
         <Link
           href="/dashboard"
@@ -80,6 +77,7 @@ function SidebarContent({ onLinkClick }: { onLinkClick?: () => void }) {
           <ChevronLeft className="w-5 h-5" />
           Volver al sitio
         </Link>
+
         <form action="/auth/logout" method="POST">
           <button
             type="submit"
@@ -99,12 +97,10 @@ export default function AdminSidebar() {
 
   return (
     <>
-      {/* Desktop Sidebar */}
       <aside className="hidden lg:flex w-64 bg-foreground text-background flex-col min-h-screen sticky top-0">
         <SidebarContent />
       </aside>
 
-      {/* Mobile Menu Button */}
       <div className="lg:hidden fixed top-4 left-4 z-50">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
