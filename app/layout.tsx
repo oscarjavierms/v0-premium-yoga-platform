@@ -1,11 +1,10 @@
+import "./globals.css"
 import type React from "react"
-import AdminSidebar from "./components/admin-sidebar"
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-muted/30 flex">
-      <AdminSidebar />
-      <main className="flex-1 overflow-auto">{children}</main>
-    </div>
+    <html lang="es">
+      <body>{children}</body>
+    </html>
   )
 }
