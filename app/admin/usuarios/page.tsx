@@ -6,8 +6,8 @@ export const metadata = {
   title: "Detalle de Usuario | Admin",
 }
 
-export default async function UserDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
+export default async function UserDetailPage({ params }: { params: { id: string } }) {
+  const { id } = params
   const supabase = await createClient()
 
   const { data: user } = await supabase.from("profiles").select("*").eq("id", id).single()
@@ -39,7 +39,7 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
 
   return (
     <div className="p-4 lg:p-8">
-      <UserDetailClient user={user} progress={progress || []} favorites={favorites || []} />
+      <UsersClient user={user} progress={progress || []} favorites={favorites || []} />
     </div>
   )
 }
