@@ -28,10 +28,13 @@ export function UsersClient({ users }: UsersClientProps) {
   const [roleFilter, setRoleFilter] = useState<string>("all")
 
   const filteredUsers = users.filter((user) => {
+    const q = search.toLowerCase()
+
     const matchesSearch =
-      user.full_name?.toLowerCase().includes(search.toLowerCase()) ||
-      user.email?.toLowerCase().includes(search.toLowerCase())
+      (user.full_name?.toLowerCase().includes(q) ?? false) || (user.email?.toLowerCase().includes(q) ?? false)
+
     const matchesRole = roleFilter === "all" || user.role === roleFilter
+
     return matchesSearch && matchesRole
   })
 
@@ -51,6 +54,7 @@ export function UsersClient({ users }: UsersClientProps) {
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-xs"
         />
+
         <Select value={roleFilter} onValueChange={setRoleFilter}>
           <SelectTrigger className="w-[140px]">
             <SelectValue placeholder="Rol" />
@@ -65,8 +69,8 @@ export function UsersClient({ users }: UsersClientProps) {
       </div>
 
       {filteredUsers.length === 0 ? (
-        <EmptyState icon={<Users className="w-5 h-5" />} ... />
-
+        <EmptyState
+          icon={<Users className="w-5 h-5" />}
           title="Sin usuarios"
           description={search || roleFilter !== "all" ? "No se encontraron usuarios" : "No hay usuarios registrados"}
         />
@@ -82,6 +86,7 @@ export function UsersClient({ users }: UsersClientProps) {
                 <th className="text-right px-6 py-4 text-sm font-medium">Acciones</th>
               </tr>
             </thead>
+
             <tbody className="divide-y divide-border">
               {filteredUsers.map((user) => (
                 <tr key={user.id} className="hover:bg-muted/30 transition-colors">
@@ -92,23 +97,26 @@ export function UsersClient({ users }: UsersClientProps) {
                           {(user.full_name?.[0] || user.email?.[0] || "?").toUpperCase()}
                         </span>
                       </div>
+
                       <div>
                         <p className="font-medium">{user.full_name || "Sin nombre"}</p>
+
                         <p className="text-sm text-muted-foreground flex items-center gap-1">
                           <Mail className="w-3 h-3" />
-                          {user.email}
+                          {user.email || "Sin email"}
                         </p>
                       </div>
                     </div>
                   </td>
+
                   <td className="px-6 py-4">
                     <span
                       className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
                         user.role === "admin"
                           ? "bg-purple-50 text-purple-700"
                           : user.role === "instructor"
-                            ? "bg-blue-50 text-blue-700"
-                            : "bg-gray-50 text-gray-700"
+                          ? "bg-blue-50 text-blue-700"
+                          : "bg-gray-50 text-gray-700"
                       }`}
                     >
                       {user.role === "admin" ? (
@@ -116,21 +124,25 @@ export function UsersClient({ users }: UsersClientProps) {
                       ) : user.role === "instructor" ? (
                         <User className="w-3 h-3" />
                       ) : null}
+
                       {user.role === "admin" ? "Admin" : user.role === "instructor" ? "Instructor" : "Usuario"}
                     </span>
                   </td>
+
                   <td className="px-6 py-4">
                     <div className="text-sm">
                       <p>{user.completedClasses} completadas</p>
                       <p className="text-muted-foreground">{user.totalProgress} en progreso</p>
                     </div>
                   </td>
+
                   <td className="px-6 py-4">
                     <span className="text-sm text-muted-foreground flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
                       {new Date(user.created_at).toLocaleDateString("es-ES")}
                     </span>
                   </td>
+
                   <td className="px-6 py-4">
                     <div className="flex items-center justify-end">
                       <Link href={`/admin/usuarios/${user.id}`}>
