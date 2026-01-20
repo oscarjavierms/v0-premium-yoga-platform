@@ -65,8 +65,8 @@ export function UsersClient({ users }: UsersClientProps) {
       </div>
 
       {filteredUsers.length === 0 ? (
-        <EmptyState
-          icon={Users}
+        <EmptyState icon={<Users className="w-5 h-5" />} ... />
+
           title="Sin usuarios"
           description={search || roleFilter !== "all" ? "No se encontraron usuarios" : "No hay usuarios registrados"}
         />
