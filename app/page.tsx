@@ -1,29 +1,14 @@
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
-import { HeroSection } from "@/components/landing/hero-section"
-import { ProblemSection } from "@/components/landing/problem-section"
-import { PillarsSection } from "@/components/landing/pillars-section"
-import { ClassesPreview } from "@/components/landing/classes-preview"
-import { InstructorsSection } from "@/components/landing/instructors-section"
-import { PricingSection } from "@/components/landing/pricing-section"
-import { ManifestoSection } from "@/components/landing/manifesto-section"
-import { CTASection } from "@/components/landing/cta-section"
+"use client"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
-export default function HomePage() {
-  return (
-    <>
-      <Header />
-      <main>
-        <HeroSection />
-        <ProblemSection />
-        <PillarsSection />
-        <ClassesPreview />
-        <InstructorsSection />
-        <PricingSection />
-        <ManifestoSection />
-        <CTASection />
-      </main>
-      <Footer />
-    </>
-  )
+export default function RootPage() {
+  const router = useRouter()
+  
+  useEffect(() => {
+    // Esto enviará a todos los que entren a la raíz directo a tu nuevo santuario
+    router.push("/mi-santuario")
+  }, [router])
+
+  return <div className="bg-white min-h-screen" /> // Pantalla blanca mientras redirige
 }
