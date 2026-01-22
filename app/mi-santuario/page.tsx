@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Sparkles, Clock, BookOpen, ChevronRight } from "lucide-react"
 
 export default function MiSantuarioPage() {
-  const [saludo, setSaludo] = useState("Hola")
+  const [saludo, setSaludo] = useState("Holaaaaaaaa")
 
   useEffect(() => {
     const hora = new Date().getHours()
