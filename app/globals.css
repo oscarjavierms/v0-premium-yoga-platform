@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* 1. IMPORTACIÓN DE FUENTES: Playfair para Títulos y Montserrat para Menús */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -70,8 +73,10 @@
 }
 
 @theme inline {
-  --font-sans: "Inter", "Inter Fallback", sans-serif;
-  --font-serif: "Playfair Display", "Playfair Display Fallback", serif;
+  /* CAMBIO CLAVE: Montserrat para el sistema sans (Menús) y Playfair para serif (Títulos) */
+  --font-sans: "Montserrat", "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -116,6 +121,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Suavizado de fuente para un look más premium */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
@@ -123,7 +131,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Adding scrollbar-hide utility for horizontal scroll on mobile */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
