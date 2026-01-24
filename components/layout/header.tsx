@@ -2,9 +2,18 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, UserCircle, LogOut, Settings, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+// Importamos los componentes del menú desplegable
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 const navigation = [
   { name: "Método", href: "#metodo" },
@@ -16,6 +25,8 @@ const navigation = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  // Simulamos si el usuario está logueado (esto luego vendrá de tu Auth)
+  const [isLoggedIn, setIsLoggedIn] = useState(true) 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,7 +47,7 @@ export function Header() {
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <span className="font-serif text-2xl tracking-tight">TU ACADEMIA</span>
+            <span className="font-serif text-2xl tracking-tight">SANTUARIO</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -52,16 +63,47 @@ export function Header() {
             ))}
           </div>
 
-          {/* CTA Buttons */}
+          {/* User / CTA Buttons */}
           <div className="hidden lg:flex lg:items-center lg:gap-x-4">
-            <Link href="/auth/login">
-              <Button variant="ghost" className="text-sm tracking-wide uppercase">
-                Iniciar Sesión
-              </Button>
-            </Link>
-            <Link href="/auth/registro">
-              <Button className="text-sm tracking-wide uppercase px-6">Comenzar</Button>
-            </Link>
+            {isLoggedIn ? (
+              /* MENÚ DE PERFIL (No desenfoca el fondo) */
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="outline-none p-1 rounded-full hover:bg-black/5 transition">
+                    <UserCircle className="h-8 w-8 text-neutral-600" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 mt-2">
+                  <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/mi-santuario" className="flex items-center cursor-pointer">
+                      <User className="mr-2 h-4 w-4" /> Mi Santuario
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/perfil" className="flex items-center cursor-pointer">
+                      <Settings className="mr-2 h-4 w-4" /> Ajustes
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="text-red-600 cursor-pointer">
+                    <LogOut className="mr-2 h-4 w-4" /> Cerrar Sesión
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Link href="/auth/login">
+                  <Button variant="ghost" className="text-sm tracking-wide uppercase">
+                    Iniciar Sesión
+                  </Button>
+                </Link>
+                <Link href="/auth/registro">
+                  <Button className="text-sm tracking-wide uppercase px-6">Comenzar</Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -85,16 +127,6 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
-            <div className="pt-6 border-t border-border space-y-4">
-              <Link href="/auth/login" className="block">
-                <Button variant="outline" className="w-full tracking-wide uppercase bg-transparent">
-                  Iniciar Sesión
-                </Button>
-              </Link>
-              <Link href="/auth/registro" className="block">
-                <Button className="w-full tracking-wide uppercase">Comenzar</Button>
-              </Link>
-            </div>
           </div>
         </div>
       )}
